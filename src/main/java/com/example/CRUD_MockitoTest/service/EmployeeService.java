@@ -2,6 +2,7 @@ package com.example.CRUD_MockitoTest.service;
 
 
 
+import com.example.CRUD_MockitoTest.Exception.BannedEmployeeException;
 import com.example.CRUD_MockitoTest.model.Employee;
 import com.example.CRUD_MockitoTest.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,4 +102,16 @@ public class EmployeeService {
     }
 
 
+    public void welcomeEmployee(String message) {
+        System.out.println("Hi  "+message);
+    }
+
+    public ResponseEntity<Object> checkEmployeeEligibility(int age) throws BannedEmployeeException {
+        if(age<18){
+            throw new BannedEmployeeException("Employee banned");
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.OK).body("Access Allowed");
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package com.example.CRUD_MockitoTest.controller;
 
 
+import com.example.CRUD_MockitoTest.Exception.BannedEmployeeException;
 import com.example.CRUD_MockitoTest.model.Employee;
 import com.example.CRUD_MockitoTest.service.EmployeeService;
 import jakarta.validation.Valid;
@@ -87,6 +88,16 @@ public class EmployeeController {
     @DeleteMapping("/deleteEmployeeByQuery")
     public ResponseEntity<Object> deleteEmployeeByQuery() {
         return employeeService.deleteEmployeeByQuery();
+    }
+
+    @PostMapping("/welcome/{msg}")
+    private void welcome(@PathVariable("msg") String message){
+        employeeService.welcomeEmployee(message);
+    }
+
+    @PostMapping("/checkEmployeeEligibility/{age}")
+    public ResponseEntity<Object> check(@PathVariable("age") int age) throws BannedEmployeeException {
+        return employeeService.checkEmployeeEligibility(age);
     }
 
 
